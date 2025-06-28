@@ -2,6 +2,12 @@
 
 An AI agent that connects to SQL Server databases using OpenAI and the Model Context Protocol (MCP) for natural language database queries.
 
+## Architecture
+
+![Architecture Diagram](Architecture.png)
+
+*Clean, streamlined architecture with direct communication between components*
+
 ## Features
 
 - **Natural Language Queries**: Ask questions about your database in plain English
@@ -9,10 +15,10 @@ An AI agent that connects to SQL Server databases using OpenAI and the Model Con
 - **Real-time Results**: Formatted output showing database results
 - **Secure Configuration**: Environment-based secrets management
 
-## Architecture
+## Data Flow
 
 ```
-User Query → OpenAI GPT → Function Calling → MCP Server → SQL Server → Results → Structured Analysis
+User Query → OpenAI GPT → Function Calling → MCP Server → SQL Server → Results → Response
 ```
 
 ## Prerequisites
