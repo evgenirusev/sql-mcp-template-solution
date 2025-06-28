@@ -1,0 +1,4 @@
+openai>=1.14
+mcp[cli]
+pyodbc
+python-dotenv>=1.0.0 
