@@ -4,7 +4,7 @@ An AI agent that connects to SQL Server databases using OpenAI and the Model Con
 
 ## Architecture
 
-![Architecture Diagram](Architecture.png)
+![Architecture Diagram](Diagram.png)
 
 *Clean, streamlined architecture with direct communication between components*
 
