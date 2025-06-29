@@ -109,7 +109,6 @@ def list_tables() -> List[Dict[str, str]]:
             """)
 
             rows = cur.fetchall()
-            # More explicit: use column names for clarity
             return [
                 {
                     "schema": row[0],    # TABLE_SCHEMA

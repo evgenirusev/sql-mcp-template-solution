@@ -77,8 +77,6 @@ async def chat_loop() -> None:
                 conversation.extend(tool_results)
                 continue  # ask model to produce a final answer
 
-
-            
             # Final response
             conversation.append({"role": "assistant", "content": msg_obj.content})
             print(f"Assistant > {msg_obj.content}\n")

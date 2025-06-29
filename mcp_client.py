@@ -67,33 +67,18 @@ class MCPClient:
         try:
             raw_result = await self.session.call_tool(tool_name, arguments=arguments)
             
-            # Log the raw MCP response for debugging
-            print(f"  🔧 RAW MCP RESPONSE for {tool_name}:")
-            print(f"     Type: {type(raw_result)}")
-            print(f"     Dir: {[attr for attr in dir(raw_result) if not attr.startswith('_')]}")
-            print(f"     Raw: {raw_result}")
-            print()
-            
         except Exception as e:
             raise RuntimeError(f"MCP tool '{tool_name}' execution failure: {e}")
 
         # Extract result from different MCP response formats
         result = getattr(raw_result, "result", getattr(raw_result, "data", raw_result))
-        
-        print(f"  📊 EXTRACTED RESULT for {tool_name}:")
-        print(f"     Type: {type(result)}")
-        print(f"     Content: {result}")
-        print()
 
         # Handle direct dict/list results
         if isinstance(result, (list, dict)):
-            print(f"  ✅ RETURNING DIRECT RESULT (list/dict)")
             return result
 
         # Handle content blocks (text responses)
         if hasattr(result, "content"):
-            print(f"  📝 PROCESSING CONTENT BLOCKS (found {len(result.content)} blocks)")
-            
             # Collect all parsed results from content blocks
             parsed_blocks = []
             raw_text_blocks = []
@@ -174,12 +159,6 @@ async def cleanup_mcp_client():
 def format_tool_result(func_name: str, result: Any) -> None:
     """Format and display tool execution results."""
     if func_name == "list_tables" and isinstance(result, list):
-        # Log the raw result for debugging
-        print(f"  🔍 RAW RESULT for {func_name}:")
-        print(f"     Type: {type(result)}")
-        print(f"     Length: {len(result)}")
-        print(f"     Content: {result}")
-        print()
         
         print(f"  → Found {len(result)} tables:")
         for table in result[:5]:  # Show first 5 tables
