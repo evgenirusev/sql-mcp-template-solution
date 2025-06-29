@@ -58,7 +58,7 @@ OPENAI_API_KEY=your_openai_api_key_here
 
 # Database Configuration
 DB_SERVER=localhost
-DB_NAME=accounts-99
+DB_NAME=SalesAnalytics
 DB_USER=sa
 DB_PASSWORD=your_database_password
 DB_PORT=1433
@@ -71,7 +71,7 @@ DB_PORT=1433
 | `OPENAI_API_KEY` | Your OpenAI API key | - | ✅ |
 | `DB_PASSWORD` | Database password | - | ✅ |
 | `DB_SERVER` | Database server hostname | `localhost` | ❌ |
-| `DB_NAME` | Database name | `accounts-99` | ❌ |
+| `DB_NAME` | Database name | `SalesAnalytics` | ❌ |
 | `DB_USER` | Database username | `sa` | ❌ |
 | `DB_PORT` | Database port | `1433` | ❌ |
 | `OPENAI_MODEL` | OpenAI model to use | `gpt-4o-mini` | ❌ |

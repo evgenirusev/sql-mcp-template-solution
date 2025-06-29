@@ -70,7 +70,7 @@ async def chat_loop() -> None:
                             "name": func_name,
                             "content": json.dumps({"error": str(e)})
                         })
-                
+
                 # Add assistant message with tool calls
                 conversation.append(msg_obj.model_dump(exclude_none=True))
                 # Add all tool results

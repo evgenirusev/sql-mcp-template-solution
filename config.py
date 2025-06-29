@@ -24,7 +24,7 @@ MAX_CONVERSATION_HISTORY = int(os.getenv("MAX_CONVERSATION_HISTORY", "50"))
 # Database Configuration
 DB_CONFIG = {
     "server": os.getenv("DB_SERVER", "localhost"),
-    "database": os.getenv("DB_NAME", "accounts-99"),
+    "database": os.getenv("DB_NAME", "SalesAnalytics"),
     "username": os.getenv("DB_USER", "sa"),
     "password": os.getenv("DB_PASSWORD"),
     "port": int(os.getenv("DB_PORT", "1433")),
@@ -55,4 +55,4 @@ Best practices:
 - For analysis tasks, break down complex requirements into multiple queries
 - Present results clearly with explanations of what the data shows
 
-The database name is 'accounts-99'. You can execute both read and write operations.""" 
+The database name is 'SalesAnalytics'. You can execute both read and write operations.""" 
