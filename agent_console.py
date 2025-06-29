@@ -3,13 +3,17 @@
 import asyncio
 import json
 import openai
-from config import API_KEY, FUNCTIONS_SPEC, SYSTEM_PROMPT, OPENAI_MODEL, MAX_CONVERSATION_HISTORY
-from mcp_client import call_mcp_tool, format_tool_result
+from config import API_KEY, SYSTEM_PROMPT, OPENAI_MODEL, MAX_CONVERSATION_HISTORY
+from mcp_client import get_mcp_client, call_mcp_tool, format_tool_result, cleanup_mcp_client
 
 # Main chat loop
 
 async def chat_loop() -> None:
     openai_client = openai.OpenAI(api_key=API_KEY)
+    
+    # Initialize MCP client and get available tools
+    mcp_client = await get_mcp_client()
+    functions_spec = mcp_client.get_available_tools()
     
     conversation: list[dict[str, str]] = [
         {"role": "system", "content": SYSTEM_PROMPT}
@@ -33,7 +37,7 @@ async def chat_loop() -> None:
             response = openai_client.chat.completions.create(
                 model=OPENAI_MODEL,
                 messages=conversation,
-                tools=FUNCTIONS_SPEC,
+                tools=functions_spec,
             )
 
             msg_obj = response.choices[0].message  # ChatCompletionMessage
@@ -85,4 +89,10 @@ if __name__ == "__main__":
     try:
         asyncio.run(chat_loop())
     except (KeyboardInterrupt, EOFError):
-        print("\nBye!") 
+        print("\nBye!")
+    finally:
+        # Clean up MCP client resources
+        try:
+            asyncio.run(cleanup_mcp_client())
+        except:
+            pass  # Ignore cleanup errors during shutdown 

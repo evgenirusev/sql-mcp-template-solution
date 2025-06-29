@@ -94,8 +94,8 @@ def _get_connection():
         conn.close()
 
 
-@mcp.tool(structured_output=False)
-def list_tables():
+@mcp.tool(structured_output=True)
+def list_tables() -> List[Dict[str, str]]:
     """List all tables in the database."""
     try:
         with _get_connection() as conn:
@@ -105,16 +105,26 @@ def list_tables():
                 SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_TYPE
                 FROM INFORMATION_SCHEMA.TABLES 
                 WHERE TABLE_TYPE = 'BASE TABLE'
-                ORDER BY TABLE_SCHEMA, TABLE_NAME
+                ORDER BY TABLE_SCHEMA, TABLE_NAME       
             """)
-            return [{"schema": row[0], "table": row[1], "type": row[2]} for row in cur.fetchall()]
+
+            rows = cur.fetchall()
+            # More explicit: use column names for clarity
+            return [
+                {
+                    "schema": row[0],    # TABLE_SCHEMA
+                    "table": row[1],     # TABLE_NAME  
+                    "type": row[2]       # TABLE_TYPE
+                } 
+                for row in rows
+            ]
     except Exception as exc:  # noqa: BLE001
         logging.exception("Failed to list tables: %s", exc)
         raise
 
 
-@mcp.tool(structured_output=False)
-def describe_table(table_name: str):
+@mcp.tool(structured_output=True)
+def describe_table(table_name: str) -> Dict[str, Any]:
     """Get the schema of a specific table including columns, types, and constraints."""
     try:
         with _get_connection() as conn:
@@ -154,8 +164,8 @@ def describe_table(table_name: str):
         raise
 
 
-@mcp.tool(structured_output=False)
-def execute_sql(query: str):
+@mcp.tool(structured_output=True)
+def execute_sql(query: str) -> Dict[str, Any]:
     """Execute any SQL query (SELECT, INSERT, UPDATE, DELETE, etc.)."""
     try:
         with _get_connection() as conn:

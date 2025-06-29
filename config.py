@@ -37,52 +37,9 @@ if not DB_CONFIG["password"]:
         "variable in your .env file or system environment."
     )
 
-# OpenAI function specifications
-
-FUNCTIONS_SPEC = [
-    {
-        "type": "function",
-        "function": {
-            "name": "list_tables",
-            "description": "List all tables in the database",
-            "parameters": {"type": "object", "properties": {}}
-        }
-    },
-    {
-        "type": "function", 
-        "function": {
-            "name": "describe_table",
-            "description": "Get the schema of a specific table",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "table_name": {
-                        "type": "string",
-                        "description": "Name of the table to describe"
-                    }
-                },
-                "required": ["table_name"]
-            }
-        }
-    },
-    {
-        "type": "function",
-        "function": {
-            "name": "execute_sql",
-            "description": "Execute a SQL query on the database",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "query": {
-                        "type": "string",
-                        "description": "SQL query to execute"
-                    }
-                },
-                "required": ["query"]
-            }
-        }
-    }
-]
+# OpenAI function specifications - dynamically loaded from MCP server
+# This will be populated at runtime by the MCP client
+FUNCTIONS_SPEC = []
 
 SYSTEM_PROMPT = """You are an expert data assistant with access to a SQL Server database.
 
